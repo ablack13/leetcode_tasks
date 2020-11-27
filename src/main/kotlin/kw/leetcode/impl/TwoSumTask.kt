@@ -27,9 +27,9 @@ class TwoSumTask(private val input: IntArray, private val target: Int) : Task<In
     override fun exec(): IntArray =
         twoSum(input, target)
 
-    private fun twoSum(input: IntArray, target: Int): IntArray {
-        for ((index, value) in input.withIndex()) {
-            for ((index2, value2) in input.withIndex()) {
+    private fun twoSum(nums: IntArray, target: Int): IntArray {
+        for ((index, value) in nums.withIndex()) {
+            for ((index2, value2) in nums.withIndex()) {
                 if (index2 > index)
                     if (value + value2 == target)
                         return intArrayOf(index, index2)

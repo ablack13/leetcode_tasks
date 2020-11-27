@@ -1,5 +1,7 @@
 package kw.leetcode.test
 
+import kw.leetcode.impl.LongestSubstringWithoutRepeatingCharactersTask
+import org.junit.Assert
 import org.junit.Test
 
 /**
@@ -26,11 +28,32 @@ Example 4:
 
 Input: s = ""
 Output: 0
+
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of English letters, digits, symbols and spaces.
  * */
 
 class LongestSubstringWithoutRepeatingCharactersTest {
+    val dataSet = listOf(
+        "abcabcbb" to 3,
+        "bbbbb" to 1,
+        "pwwkew" to 3,
+        "" to 0,
+        " " to 1,
+        "c" to 1,
+        "au" to 2,
+        "bfw" to 3,
+        "bf1 saas" to 6
+    )
+
     @Test
     fun start() {
-        println("LongestSubstringWithoutRepeatingCharactersTest")
+        dataSet.forEach { data ->
+            val result = LongestSubstringWithoutRepeatingCharactersTask(data.first).exec()
+            println("input->`${data.first}` result->$result check->${data.second}")
+            Assert.assertEquals("input->`${data.first}`",result, data.second)
+        }
     }
 }

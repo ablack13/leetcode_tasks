@@ -2,6 +2,7 @@ package kw.leetcode.test
 
 import kw.leetcode.impl.TwoSumTask
 import kw.leetcode.test.extension.asString
+import org.junit.Assert
 import org.junit.Test
 
 class TwoSumTest {
@@ -21,12 +22,12 @@ class TwoSumTest {
     fun start() {
         dataSet.forEach { data ->
             val result = TwoSumTask(data.input, data.target).exec()
-            println(
+            Assert.assertTrue(
                 "input->${data.input.asString}" +
                         " target->${data.target}" +
-                        " result->${result.asString}"
+                        " result->${result.asString}",
+                result[0] == data.result[0] && result[1] == data.result[1]
             )
         }
     }
-
-   }
+}

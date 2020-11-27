@@ -26,10 +26,60 @@ Example 4:
 
 Input: s = ""
 Output: 0
+
+Constraints:
+
+0 <= s.length <= 5 * 104
+s consists of English letters, digits, symbols and spaces.
  * */
 
-class LongestSubstringWithoutRepeatingCharactersTask : Task<Int> {
-    override fun exec(): Int {
-        TODO("Not yet implemented")
+class LongestSubstringWithoutRepeatingCharactersTask(private val input: String) : Task<Int> {
+    override fun exec(): Int =
+        lengthOfLongestSubstring(input)
+
+    private fun lengthOfLongestSubstring(s: String): Int {
+        var counter = if (s.isEmpty()) 0 else 1
+        for ((i, symbol) in s.withIndex()) {
+            val index = i.inc()
+            val endIndex = s.length - 1
+            var iteration: String = symbol.toString()
+            for (nextIndex in index until s.length) {
+                val nextSymbol = s[nextIndex]
+                if (!iteration.contains(nextSymbol))
+                    iteration += nextSymbol
+                else {
+                    if (iteration.length > counter)
+                        counter = iteration.length
+                    break
+                }
+                if (nextIndex == endIndex)
+                    if (iteration.length > counter)
+                        counter = iteration.length
+            }
+        }
+        return counter
+    }
+
+    private fun _lengthOfLongestSubstring(s: String): Int {
+        var counter = if (s.isEmpty()) 0 else 1
+        s.forEachIndexed { i, symbol ->
+            val index = i.inc()
+            val endIndex = s.length - 1
+            var iteration: String = symbol.toString()
+            for (nextIndex in index until s.length) {
+                val nextSymbol = s[nextIndex]
+                if (!iteration.contains(nextSymbol))
+                    iteration += nextSymbol
+                else {
+                    if (iteration.length > counter)
+                        counter = iteration.length
+                    break
+                }
+                if (nextIndex == endIndex)
+                    if (iteration.length > counter)
+                        counter = iteration.length
+            }
+        }
+        return counter
     }
 }

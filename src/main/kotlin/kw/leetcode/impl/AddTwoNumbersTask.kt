@@ -16,10 +16,14 @@ Output: [7,0,8]
 Explanation: 342 + 465 = 807.
 
 * */
-class AddTwoNumbersTask(private val l1: ListNode?, private val l2: ListNode?) : Task<ListNode?> {
+class AddTwoNumbersTask(private val l1: ListNode?, private val l2: ListNode?) : Task<AddTwoNumbersTask.ListNode?> {
 
     override fun exec(): ListNode? =
         addTwoNumbers(l1, l2)
+
+    class ListNode(var `val`: Int) {
+        var next: ListNode? = null
+    }
 
     private fun addTwoNumbers(l1: ListNode?, l2: ListNode?): ListNode? {
         var result: ListNode? = null
@@ -57,8 +61,4 @@ class AddTwoNumbersTask(private val l1: ListNode?, private val l2: ListNode?) : 
         } while (currentL1 != null || currentL2 != null)
         return result
     }
-}
-
-class ListNode(var `val`: Int) {
-    var next: ListNode? = null
 }

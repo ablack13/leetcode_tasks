@@ -1,7 +1,6 @@
 package kw.leetcode.test
 
 import kw.leetcode.impl.AddTwoNumbersTask
-import kw.leetcode.impl.ListNode
 import org.junit.Assert
 import org.junit.Test
 
@@ -76,7 +75,7 @@ class AddTwoNumbersTest {
         Assert.assertEquals("res3->${res3.asStr()}", res3.asStr(), result3)
     }
 
-    private fun ListNode?.asStr(): String {
+    private fun AddTwoNumbersTask.ListNode?.asStr(): String {
         var current = this
         var result = current?.`val`.toString()
         while (current?.next != null) {
@@ -86,8 +85,8 @@ class AddTwoNumbersTest {
         return result
     }
 
-    private fun node(value: Int, op: (() -> ListNode)? = null): ListNode {
-        return ListNode(value).apply {
+    private fun node(value: Int, op: (() -> AddTwoNumbersTask.ListNode)? = null): AddTwoNumbersTask.ListNode {
+        return AddTwoNumbersTask.ListNode(value).apply {
             if (op != null)
                 this.next = op.invoke()
         }

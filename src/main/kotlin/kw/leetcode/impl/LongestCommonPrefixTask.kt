@@ -31,20 +31,16 @@ class LongestCommonPrefixTask : Task2<Array<String>, String> {
         longestCommonPrefix(strs = input)
 
     private fun longestCommonPrefix(strs: Array<String>): String {
-        if (strs.size == 1) {
-            return strs.first()
-        }
-        val shortestWord = strs.minBy { it.length }
-        requireNotNull(shortestWord)
-        val result: Array<Char> = Array(shortestWord.length) { '-' }
+        var prefix = ""
 
-        shortestWord.forEachIndexed { index, char ->
-            if (strs.all { it[index] == char }) {
-                result[index] = char
-            } else {
-                return result.filterNot { it == '-' }.joinToString(separator = "")
+        strs.minBy { it.length }
+            ?.forEachIndexed { index, char ->
+                if (strs.all { it[index] == char }) {
+                    prefix += char
+                } else {
+                    return prefix
+                }
             }
-        }
-        return ""
+        return prefix
     }
 }

@@ -39,46 +39,39 @@ Constraints:
 class ThreeSumTask : Task2<IntArray, List<List<Int>>> {
 
     override fun exec(input: IntArray): List<List<Int>> =
-        threeSum(num = input)
+        threeSum(nums = input)
 
-    private fun threeSum(num: IntArray): List<List<Int>> {
-        println("--- input -> [${num.joinToString(", ")}]")
-        val nums = num.sorted().toIntArray()
+    private fun threeSum(nums: IntArray): List<List<Int>> {
+        nums.sort()
+        val result = mutableListOf<List<Int>>()
+        repeat((0..nums.size - 2).count()) { i ->
+            if (i == 0 || nums[i] != nums[i - 1]) {
+                var left = i + 1
+                var right = nums.size - 1
 
-        val result: MutableList<List<Int>> = mutableListOf()
-        var i = 0
+                val num1 = nums[i]
 
-        main@ while (i < nums.lastIndex) {
-            var j = i + 1
-            val usedIndexes = mutableSetOf<Int>()
-            second@while (j < nums.lastIndex) {
-                var k = j + 1
-                third@ while (k <= nums.lastIndex){
-                    if (i != j && i != k && j != k) {
-                        if (nums[i] + nums[j] + nums[k] == 0) {
-                            var countIndexes = if (usedIndexes.contains(i)) 1 else 0
-                            countIndexes += if (usedIndexes.contains(j)) 1 else 0
-                            countIndexes += if (usedIndexes.contains(k)) 1 else 0
+                while (left < right) {
+                    val num2 = nums[left]
+                    val num3 = nums[right]
 
-                            if (countIndexes < 2) {
-                                println("[$i,$j,$k] {${nums[i]}, ${nums[j]}, ${nums[k]}}")
-                                usedIndexes.addAll(listOf(i, j, k))
-                                result.add(listOf(nums[i], nums[j], nums[k]))
-                                k++
-                                continue@third
-                            } else {
-                                j++
-                                continue@second
-                            }
+                    when {
+                        num1 + num2 + num3 == 0 -> {
+                            result.add(listOf(num1, num2, num3))
+
+                            while (left < right && num2 == nums[left + 1]) left++
+                            while (left < right && num3 == nums[right - 1]) right--
+
+                            left--
+                            right--
                         }
-                    }
-                    k++
-                }
-                j++
-            }
-            i++
-        }
 
-        return result.distinctBy { it.toList() }
+                        num2 + num3 > -num1 -> right--
+                        else -> left++
+                    }
+                }
+            }
+        }
+        return result
     }
 }
